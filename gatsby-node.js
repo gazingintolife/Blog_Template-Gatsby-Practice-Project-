@@ -1,19 +1,20 @@
 const path = require('path')
 
-module.exports.onCreateNode = ({node, actions}) => {
-    const { createNodeField } = actions;
+// module.exports.onCreate = ({node, actions}) => {
+//     const { createNodeField } = actions;
 
-    if(node.internal.type == 'MarkdownRemark'){
-        const slug = path.basename(node.fileAbsolutePath, '.md')
+//     if(node.internal.type == 'MarkdownRemark'){
+//         const slug = path.basename(node.fileAbsolutePath, '.md')
         
-        createNodeField({
-            node,
-            name: 'slug',
-            value: slug
-        })
-    }
+//         createNodeField({
+//             node,
+//             name: 'slug',
+//             value: slug
+//         })
+//     }
 
-}
+// }
+// above is the setup for using markdown files , in contentful, slugs are already generated
 
 // What did we do here?
 // we used onCreatePage to create a new field 
@@ -24,24 +25,22 @@ module.exports.createPages = async ({ graphql, actions }) => {
     const blogTemplate = path.resolve('./src/templates/blog.js');
     const res = await graphql(`
         query{
-            allMarkdownRemark{
+            allContentfulBlogPost{
                 edges{
                     node{
-                        fields{
-                            slug
+                        slug
                         }
                     }
                 }
             }
-        }
     `);
 
-    res.data.allMarkdownRemark.edges.forEach((edge) => 
+    res.data.allContentfulBlogPost.edges.forEach((edge) => 
     (createPage({
         component: blogTemplate,  // not actual react component, just the path to the component should be created
-        path: `/blog/${edge.node.fields.slug}`, // path where the newly created page should live
+        path: `/blog/${edge.node.slug}`, // path where the newly created page should live
         context:{
-            slug: edge.node.fields.slug   // context provides the data that is further needed by the page
+            slug: edge.node.slug   // context provides the data that is further needed by the page
         }
     }))
     );

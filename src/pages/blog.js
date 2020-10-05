@@ -1,42 +1,49 @@
 import React from 'react';
 import Layout from '../components/layout';
 import {graphql, Link, useStaticQuery} from 'gatsby';
+import blogStyles from './blog.module.scss';
+import Head from '../components/head';
 
 const BlogPage =() => {
     
     const data = useStaticQuery(graphql`
         query{
-            allMarkdownRemark{
+            allContentfulBlogPost (
+                sort: {
+                    fields: publishedDate,
+                    order: DESC
+                }
+            )   {
                 edges{
                     node{
-                        frontmatter{
-                            title
-                            date
-                        }
-                        fields{
-                            slug
+                        title
+                        slug
+                        publishedDate(formatString: "MMMM Do, YYYY")
                         }
                     }
                 }
-            }
         }
+        
     `)
     console.log(data);
 
     return (
         <div>
             <Layout>
+                <Head title="Blog"/>
                 <h1>Blog</h1>
-                <ol>
+                <ol className={blogStyles.posts}>
                     {
-                        data.allMarkdownRemark.edges.map((post) => (
-                        <li>
+                        data.allContentfulBlogPost.edges.map((post) => (
+                        <li className={blogStyles.each__post}>
+                        <Link to={`/blog/${post.node.slug}`}>
                             <h2>
-                                <Link to={`/blog/${post.node.fields.slug}`}>{post.node.frontmatter.title}</Link>
+                                {post.node.title}
                             </h2>
                             <p>
-                                {post.node.frontmatter.date}
+                                {post.node.publishedDate}
                             </p>
+                        </Link>
                         </li>
                     ))}
                 </ol>
