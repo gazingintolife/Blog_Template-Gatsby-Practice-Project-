@@ -1,7 +1,6 @@
 import { Link, graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
-//import './header.module.scss'
-import headerStyles from './header.module.scss';
+import "../styles/index.css";
 
 const Header = () => {
     const data = useStaticQuery(graphql`
@@ -15,18 +14,13 @@ const Header = () => {
     `)
 
     return (
-        <header className={headerStyles.header}>
-            <h1>
-                <Link className={headerStyles.title} to='/'>
-                {data.site.siteMetadata.title}
-                </Link>
-            </h1>
-            <nav>
-                <ul className={headerStyles.navList}>
-                    <li><Link className= {headerStyles.navLink} activeClassName = {headerStyles.activeNavLink} to = "/">Home</Link></li>
-                    <li><Link className= {headerStyles.navLink} activeClassName = {headerStyles.activeNavLink} to = "/blog">Blog</Link></li>
-                    <li><Link className= {headerStyles.navLink} activeClassName = {headerStyles.activeNavLink} to = "/about">About</Link></li>
-                    <li><Link className= {headerStyles.navLink} activeClassName = {headerStyles.activeNavLink} to = "/contact">Contact</Link></li>
+        <header className="container-w-full z-20 block bg-red-300 w-100">
+            <nav className="rounded-b" >
+                <ul className="flex flex-row justify-center bg-red-500 pt-4">
+                    <li className="btn mx-4 mb-4"><Link  to = "/">Home</Link></li>
+                    <li className="btn mx-4 mb-4"><Link  to = "/blog">Blog</Link></li>
+                    <li className="btn mx-4 mb-4"><Link  to = "/about">About</Link></li>
+                    <li className="btn mx-4 mb-4"><Link  to = "/contact">Contact</Link></li>
                 </ul>
             </nav>
         </header>

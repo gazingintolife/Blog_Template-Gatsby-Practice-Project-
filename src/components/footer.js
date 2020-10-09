@@ -1,6 +1,5 @@
 import React from 'react';
-import { graphql, useStaticQuery} from 'gatsby'
-import footerStyles from './footer.module.scss';
+import { graphql, useStaticQuery} from 'gatsby';
 
 const Footer = () => {
     
@@ -15,7 +14,7 @@ const Footer = () => {
     `)
     
     return (
-        <footer className={footerStyles.footer}>
+        <footer className=" px-12 py-8 my-12 bg-green-600 text-center block font-semibold justify-center relative  ">
             <p> Created By {data.site.siteMetadata.author}, Copyright 2020 </p>
         </footer>
     );

@@ -1,14 +1,14 @@
 import React from 'react';
 import Footer from './footer';
 import Header from './header';
-import '../styles/index.scss';
-import layoutStyles from './layout.module.scss';
 
 const Layout = (props) => (
-    <div className={layoutStyles.container}>
-        <div  className={layoutStyles.content}>
+    <div className="">
+        <div>
             <Header/>
-            {props.children}
+            <div className="block text-center">
+                {props.children}
+            </div>
         </div>
         <Footer/>
     </div>

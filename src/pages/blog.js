@@ -1,7 +1,6 @@
 import React from 'react';
 import Layout from '../components/layout';
 import {graphql, Link, useStaticQuery} from 'gatsby';
-import blogStyles from './blog.module.scss';
 import Head from '../components/head';
 
 const BlogPage =() => {
@@ -32,10 +31,10 @@ const BlogPage =() => {
             <Layout>
                 <Head title="Blog"/>
                 <h1>Blog</h1>
-                <ol className={blogStyles.posts}>
+                <ol >
                     {
                         data.allContentfulBlogPost.edges.map((post) => (
-                        <li className={blogStyles.each__post}>
+                        <li >
                         <Link to={`/blog/${post.node.slug}`}>
                             <h2>
                                 {post.node.title}
